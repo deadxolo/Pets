@@ -1,18 +1,14 @@
-# Quick Start Guide
+# 🚀 Quick Start Guide - Admin Panel Setup
 
-## Fix NPM Permission Issue (Required First!)
+## ⚡ Get Your Admin Panel Running in 5 Minutes!
 
+### ⚠️ Step 1: Fix NPM Permissions (1 minute)
 Your npm cache has permission issues. Run this command first:
 
 ```bash
 sudo chown -R 501:20 "/Users/arju/.npm"
 ```
-
-Or alternatively, clear the cache with sudo:
-
-```bash
-sudo npm cache clean --force
-```
+Enter your password when prompted.
 
 ## Setup Steps
 

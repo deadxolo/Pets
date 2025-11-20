@@ -6,7 +6,15 @@
       "Bash(sudo rm:*)",
       "Bash(lsof:*)",
       "Bash(curl:*)",
-      "Bash(sudo chown:*)"
+      "Bash(sudo chown:*)",
+      "Bash(git rm:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nRemove .env files from git tracking and add .gitignore\n\n- Remove backend/.env and frontend/.env from version control\n- Add comprehensive .gitignore to prevent committing sensitive files\n- Environment variables should be configured locally per environment\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git commit:*)",
+      "Bash(npm run dev:*)",
+      "Bash(kill:*)",
+      "Bash(xargs kill -9)",
+      "Bash(pkill:*)"
     ],
     "deny": [],
     "ask": []

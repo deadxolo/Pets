@@ -14,10 +14,12 @@ const serviceAccount = {
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: `${process.env.FIREBASE_PROJECT_ID}.appspot.com`,
 });
 
 const db = admin.firestore();
 const auth = admin.auth();
+const storage = admin.storage();
 
-export { admin, db, auth };
+export { admin, db, auth, storage };
 export default admin;

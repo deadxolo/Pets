@@ -1,14 +1,34 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import { useCart } from '../context/CartContext';
-import { FaShoppingCart, FaUser, FaBars, FaTimes, FaPaw } from 'react-icons/fa';
+import { FaShoppingCart, FaUser, FaBars, FaTimes, FaPaw, FaUserShield } from 'react-icons/fa';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const { currentUser, signOut } = useAuth();
   const { getCartCount } = useCart();
   const navigate = useNavigate();
+
+  // Check if user is admin
+  useEffect(() => {
+    const checkAdminStatus = async () => {
+      if (currentUser) {
+        try {
+          const token = await currentUser.getIdTokenResult();
+          setIsAdmin(token.claims.admin === true);
+        } catch (error) {
+          console.error('Error checking admin status:', error);
+          setIsAdmin(false);
+        }
+      } else {
+        setIsAdmin(false);
+      }
+    };
+
+    checkAdminStatus();
+  }, [currentUser]);
 
   const handleSignOut = async () => {
     await signOut();
@@ -49,6 +69,17 @@ const Header = () => {
 
           {/* Right Section */}
           <div className="hidden md:flex items-center space-x-4">
+            {/* Admin Button - Only visible to admins */}
+            {isAdmin && (
+              <Link
+                to="/admin"
+                className="flex items-center space-x-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-medium hover:from-purple-700 hover:to-blue-700 transition-all shadow-md hover:shadow-lg"
+              >
+                <FaUserShield className="text-lg" />
+                <span>Admin Panel</span>
+              </Link>
+            )}
+
             {/* Cart */}
             <Link to="/cart" className="relative p-2 hover:text-primary-600 transition-colors">
               <FaShoppingCart className="text-2xl" />
@@ -67,6 +98,15 @@ const Header = () => {
                   <span className="font-medium">Account</span>
                 </button>
                 <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 hidden group-hover:block">
+                  {isAdmin && (
+                    <>
+                      <Link to="/admin" className="block px-4 py-2 hover:bg-gray-100 text-purple-600 font-semibold">
+                        <FaUserShield className="inline mr-2" />
+                        Admin Panel
+                      </Link>
+                      <div className="border-t my-2"></div>
+                    </>
+                  )}
                   <Link to="/profile" className="block px-4 py-2 hover:bg-gray-100">
                     Profile
                   </Link>
@@ -126,6 +166,16 @@ const Header = () => {
               </Link>
               {currentUser ? (
                 <>
+                  {isAdmin && (
+                    <Link
+                      to="/admin"
+                      onClick={() => setIsMenuOpen(false)}
+                      className="py-2 text-purple-600 hover:text-purple-700 font-bold flex items-center"
+                    >
+                      <FaUserShield className="inline mr-2" />
+                      Admin Panel
+                    </Link>
+                  )}
                   <Link
                     to="/profile"
                     onClick={() => setIsMenuOpen(false)}

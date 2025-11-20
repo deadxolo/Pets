@@ -18,6 +18,10 @@ import MyOrders from './pages/MyOrders'
 import MyAppointments from './pages/MyAppointments'
 import MyBookings from './pages/MyBookings'
 import PrivateRoute from './components/PrivateRoute'
+import AdminRoute from './components/AdminRoute'
+import AdminLayout from './components/AdminLayout'
+import Dashboard from './pages/admin/Dashboard'
+import ContentManagement from './pages/admin/ContentManagement'
 import NotFound from './pages/NotFound'
 
 function App() {
@@ -56,6 +60,12 @@ function App() {
 
         {/* 404 */}
         <Route path="*" element={<NotFound />} />
+      </Route>
+
+      {/* Admin Routes */}
+      <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
+        <Route index element={<Dashboard />} />
+        <Route path="content" element={<ContentManagement />} />
       </Route>
     </Routes>
   )
