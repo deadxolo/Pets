@@ -1,4 +1,4 @@
-# Pet Services - Full Stack Application
+# Pet Services - Full Stack Application By Arju and Helped by Akshay Kotish
 
 A comprehensive pet services platform built with React.js (frontend) and Node.js (backend) with Firebase Firestore database.
 
